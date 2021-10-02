@@ -37,19 +37,14 @@
             <div class="card">
                 <div class="card-body getJudul">
                     <h4 class="nama_surah">Nama Surah</h4>
-                    <span class="jumlah">Jumlah Ayat : arti pembukana</span>
-                    <div class="float-end mt-4">
-                        <button type="button" class="btn btn-primary btn_play"><i class="fas fa-play-circle"></i> Play Murrotal</button>
-                    </div>
+                    <span class="jumlah">Jumlah Ayat : arti pembukaan akwoaowkoaw</span>
                 </div>
             </div>
         </div>
 
-        <div class="container mt-4 ayat_ayat">
+        <div class="container mt-4 tafsiran">
 
         </div>
-
-
 
     </body>
 
@@ -65,7 +60,7 @@
             let koopId = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
 
             $.ajax({
-                url: 'https://equran.id/api/surat/' + koopId,
+                url: 'https://equran.id/api/tafsir/' + koopId,
                 type: 'GET',
             })
             .done(function(data) {
@@ -74,77 +69,22 @@
                 $('.nama_surah').html(data.nama_latin + ' - ' + data.nama)
                 $('.jumlah').html('Jumlah Ayat : ' + data.jumlah_ayat + ' | ' + 'Arti : ' + data.arti)
 
-                $.each(data.ayat, function (key, value) {
+                $.each(data.tafsir, function (key, value) {
                     
                     let card =  `
                     <div class="card border-success mb-3">
                         <div class="card-body text-success">
-                            <span class="ayat_ke">Ayat ke. ${value.nomor}</span>
-                            <h5 class="card-title arab float-end" style="margin-top: 50px;">${value.ar}</h5>
-                            <p class="card-text indo" style="margin-top: 100px;">${value.tr}</p>
-                            <p class="card-text asli">${value.idn}</p>
+                            <span class="ayat_ke">Ayat ke. ${value.ayat}</span>
+                            <p class="card-text">${value.tafsir}</p>
                         </div>
                     </div> 
-                    
                     `
 
-                    $('.ayat_ayat').append(card)
+                    $('.tafsiran').append(card)
 
                 });
 
             })
-
-            $(document).on('click', '.btn_play',function(){
-
-                var baseUrl = (window.location).href; // You can also use document.URL
-                var koopId = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
-
-                $.ajax({
-                    url: 'https://equran.id/api/surat/' + koopId,
-                    type: 'GET',
-                })
-                .done(function(data) {
-
-                    var audioElement = document.createElement('audio');
-                    audioElement.setAttribute('src', data.audio);
-                    audioElement.setAttribute('autoplay', 'autoplay');
-
-                    $.get();
-                        audioElement.addEventListener("load", function() {
-                        audioElement.play();
-                    }, true);
-
-                    let html = `
-                    <i class="fas fa-stop-circle"></i> Stop Murrotal
-                    `;
-
-                    let a = document.querySelector(".btn_play")
-
-                    $('.btn_play').html(html)
-                    a.classList.add("btn-danger", "btn_stop");
-                    a.classList.remove("btn-primary", "btn_play");
-
-                    $(document).on('click', '.btn_stop',function(){
-                        audioElement.pause();
-
-                        let html = `
-                        <i class="fas fa-play-circle"></i> Play Murrotal
-                        `;
-
-                        let a = document.querySelector(".btn_stop")
-
-                        $('.btn_stop').html(html)
-                        a.classList.remove("btn-danger", "btn_stop");
-                        a.classList.add("btn-primary", "btn_play");
-
-                    })
-
-                })
-
-                
-
-            })
-
 
         });
     </script>
