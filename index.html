@@ -251,6 +251,8 @@
             });
 
             $(document).on('click', '.btn_detail', function(){
+
+                $('#detail').modal('hide')
                 
                 let get = $(this).data('nomor')
                 $('#loading').attr('hidden', false)
@@ -261,15 +263,15 @@
                 })
                 .done(function(data) {
 
+
                     $('#detailLabel').html('Detail Surah ' + data.nama_latin)
                     $('.surat_ke').html(data.nomor)
                     $('.arti').html(data.arti)
                     $('.nama').html(data.nama_latin + ' - ' +data.nama)
                     $('.deskripsi').html(data.deskripsi)
                     $('.jumlah').html(data.jumlah_ayat)
-                    
-                    
-                    $('#loading').attr('hidden', false)
+
+                    $('#detail').modal('show')
 
 
                 })
